@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>e-Learning Cybersécurité — Cours + Quiz</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <form id="quiz-form" action="{{ url_for('resultat') }}" method="post" novalidate>
+
+
+  <!-- CSS existant -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!-- 🔧 mini CSS pour le canvas de fond (pas besoin de toucher style.css) -->
+  <style>
+    #net-bg{
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;          /* derrière tout */
+      display: block;
+      pointer-events: none; /* ne bloque pas les clics */
+    }
+    /* s’assure que le contenu est au-dessus */
+    .site-header, .container, .site-footer, .card { position: relative; z-index: 0; }
+  </style>
+
+  <!-- JS existant -->
+  <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+  <!-- 🎯 script du fond -->
+  <script defer src="{{ url_for('static', filename='bg-net.js') }}"></script>
+</head>
+<body>
+
+  <!-- 🎇 BACKGROUND CONSTELLATION (derrière tout) -->
+  <canvas id="net-bg" aria-hidden="true"></canvas>
+
+<header class="site-header">
+  <h1>Découvrir la cybersécurité</h1>
+  <p class="subtitle">Comprendre l’essentiel : VPN, pare-feu, HTTPS, phishing… puis tester ses connaissances.</p>
+</header>
+
+<main class="container">
+  {% if error %}
+    <div class="alert">{{ error }}</div>
+  {% endif %}
+
+  <section class="card">
+    <h2>Le mini-cours</h2>
+    <p>
+      La cybersécurité regroupe les pratiques qui protègent nos appareils, nos comptes et nos données.
+      Quelques réflexes simples font déjà une vraie différence :
+    </p>
+    <ul>
+      <li><strong>Mettre à jour</strong> son système et ses logiciels corrige des failles exploitées par des attaques.</li>
+      <li><strong>Utiliser un VPN</strong> chiffre la connexion et masque l’adresse IP, utile sur les Wi-Fi publics.</li>
+      <li><strong>Activer le pare-feu</strong> filtre le trafic réseau et bloque des connexions non désirées.</li>
+      <li><strong>Repérer HTTPS</strong> (le cadenas) signifie que la communication avec le site est chiffrée.</li>
+      <li><strong>Se méfier du phishing</strong> : messages pressants demandant des mots de passe ou des paiements.</li>
+      <li><strong>Des mots de passe solides</strong> (longs, uniques) et un <strong>gestionnaire</strong> aident à ne pas se répéter.</li>
+    </ul>
+    <p>
+      Le but n’est pas de tout connaître, mais d’adopter de bonnes habitudes au quotidien.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Quiz (5 questions) notée sur 20</h2>
+    <form id="quiz-form" action="{{ url_for('resultat') }}" method="post">
+      <div class="field">
+        <label for="nom">Votre nom</label>
+        <input type="text" id="nom" name="nom" placeholder="Ex. Alex Martin" required>
+      </div>
+
+      <div class="field">
+        <label for="os">Votre système que vous utiliser au quotidien ?</label>
+        <select id="os" name="os" required>
+          <option value="">— Choisir —</option>
+          <option value="windows">Windows</option>
+          <option value="macos">macOS</option>
+          <option value="linux">Linux</option>
+        </select>
+      </div>
+
+      <!-- Q1 -->
+      <fieldset class="q-block">
+        <legend>Q1 — À quoi sert principalement un VPN ?</legend>
+        <label><input type="radio" name="q1" value="a"> Accélérer le débit Internet</label>
+        <label><input type="radio" name="q1" value="b"> Chiffrer la connexion et masquer l’adresse IP</label>
+        <label><input type="radio" name="q1" value="c"> Supprimer les publicités sur tous les sites</label>
+      </fieldset>
+
+      <!-- Q2 -->
+      <fieldset class="q-block">
+        <legend>Q2 — Le rôle d’un pare-feu est de…</legend>
+        <label><input type="radio" name="q2" value="a"> Filtrer le trafic réseau selon des règles</label>
+        <label><input type="radio" name="q2" value="b"> Sauvegarder automatiquement les fichiers</label>
+        <label><input type="radio" name="q2" value="c"> Défragmenter le disque dur</label>
+      </fieldset>
+
+      <!-- Q3 -->
+      <fieldset class="q-block">
+        <legend>Q3 — Le cadenas dans le navigateur (HTTPS) indique que…</legend>
+        <label><input type="radio" name="q3" value="a"> Le site est forcément officiel</label>
+        <label><input type="radio" name="q3" value="b"> Le site ne peut pas avoir de malware</label>
+        <label><input type="radio" name="q3" value="c"> La connexion est chiffrée avec un certificat</label>
+      </fieldset>
+
+      <!-- Q4 -->
+      <fieldset class="q-block">
+        <legend>Q4 — Quel message ressemble le plus à du phishing ?</legend>
+        <label><input type="radio" name="q4" value="a"> “Voici la newsletter que vous avez demandée.”</label>
+        <label><input type="radio" name="q4" value="b"> “URGENT : Votre compte sera supprimé aujourd’hui. Connectez-vous ici.”</label>
+        <label><input type="radio" name="q4" value="c"> “Votre colis est livré. Bonne journée !”</label>
+      </fieldset>
+
+      <!-- Q5 personnalisée -->
+      <fieldset class="q-block os-q" id="q5-windows" hidden>
+        <legend>Q5 (Windows) — Pour renforcer la sécurité, où lancer les mises à jour système ?</legend>
+        <label><input type="radio" name="q5" value="a"> Paramètres &gt; Windows Update</label>
+        <label><input type="radio" name="q5" value="b"> Panneau de configuration &gt; Souris</label>
+        <label><input type="radio" name="q5" value="c"> Bloc-notes</label>
+      </fieldset>
+
+      <fieldset class="q-block os-q" id="q5-macos" hidden>
+        <legend>Q5 (macOS) — Où vérifier et appliquer les mises à jour système ?</legend>
+        <label><input type="radio" name="q5" value="a"> Safari &gt; Préférences &gt; Avancées</label>
+        <label><input type="radio" name="q5" value="b"> Réglages Système &gt; Général &gt; Mise à jour de logiciels</label>
+        <label><input type="radio" name="q5" value="c"> Applications &gt; Utilitaires &gt; Terminal uniquement</label>
+      </fieldset>
+
+      <fieldset class="q-block os-q" id="q5-linux" hidden>
+        <legend>Q5 (Linux) — Comment met-on à jour un système de façon standard ?</legend>
+        <label><input type="radio" name="q5" value="a"> En téléchargeant des .exe depuis un blog</label>
+        <label><input type="radio" name="q5" value="b"> En supprimant /etc au démarrage</label>
+        <label><input type="radio" name="q5" value="c"> Via le gestionnaire de paquets (ex. apt, dnf, pacman)</label>
+      </fieldset>
+
+      <div class="actions">
+        <button type="submit" id="submit-btn">Valider mes réponses</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <small>Projet e-learning de Noé et Shaï — Saint alyre option NSI</small>
+</footer>
+
+<!-- === Modal de confirmation personnalisée === -->
+<div id="confirm-modal" class="modal-backdrop" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+  <div class="modal-box" role="document">
+    <h3 id="confirm-title">Confirmer l’envoi</h3>
+    <p>Voulez-vous vraiment envoyer vos réponses ? Vous pourrez consulter votre résultat ensuite.</p>
+    <div class="modal-actions">
+      <button id="modal-yes" class="btn">Oui, envoyer</button>
+      <button id="modal-no" class="btn btn-secondary">Non, vérifier</button>
+    </div>
+  </div>
+</div>
+<!-- =========================================== -->
+
+</body>
+</html>
