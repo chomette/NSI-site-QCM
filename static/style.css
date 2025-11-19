@@ -1,8 +1,8 @@
-/* ==========================================================================
-   Feuille de style principale du mini-site e-learning (cybersécurité)
-   ========================================================================== */
+/* ============================
+   Feuille de style principale 
+   ============================ */
 
-/* -- Réglages de base -- */
+/*  Réglages couleur  */
 :root {
   --bg: #0f172a;      /* bleu nuit */
   --card: #111827;    /* gris très sombre */
@@ -15,14 +15,14 @@
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 
-/* ==== FOND lisse anti-banding ==== */
+/*  FOND lisse */
 body{
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   color: var(--text);
   line-height: 1.6;
 
-  /* ancien : background: linear-gradient(160deg, #0b1220, var(--bg)); */
+  /* background couleur */
   background:
     radial-gradient(1200px 800px at 70% -10%, #10182f 0%, #0b1220 60%),
     linear-gradient(160deg, #0b1220 0%, var(--bg) 100%);
@@ -31,7 +31,7 @@ body{
   background-color: #0b1220;
 }
 
-/* -- En-tête du site -- */
+/* En-tête du site */
 .site-header {
   padding: 32px 16px;
   text-align: center;
@@ -45,7 +45,7 @@ body{
   color: var(--muted);
 }
 
-/* -- Conteneur central -- */
+/* Conteneur central */
 .container {
   width: 100%;
   max-width: 900px;
@@ -53,7 +53,7 @@ body{
   padding: 16px;
 }
 
-/* -- Cartes de contenu -- */
+/* Cartes de contenu */
 .card {
   background: var(--card);
   border: 1px solid #1f2937;
@@ -63,8 +63,8 @@ body{
   box-shadow: 0 10px 20px rgba(0,0,0,.25);
 }
 
-/* === Glass blur sous le contenu (reversible) === */
-/* === Blur uniquement sur les cartes === */
+/* Glass blur sous le contenu (reversible) */
+/* Blur uniquement sur les cartes */
 .card {
   background: rgba(17, 24, 39, 0.55);
   border: none;
@@ -73,7 +73,7 @@ body{
   box-shadow: none;
 }
 
-/* Header = fond transparent (pas flou) */
+/* Header fond transparent (pas flou) */
 .site-header {
   background: transparent;
   backdrop-filter: none;
@@ -95,7 +95,7 @@ body{
   margin-bottom: 12px;
 }
 
-/* -- Formulaires -- */
+/* Formulaires  */
 .field {
   display: grid;
   gap: 6px;
@@ -129,7 +129,7 @@ body{
 /* Bloc de la question 5 (affichage conditionnel) */
 .os-q[hidden] { display: none !important; }
 
-/* -- Boutons & actions -- */
+/* Boutons & actions  */
 .actions {
   margin-top: 16px;
   display: flex;
@@ -149,7 +149,7 @@ button, .btn {
 }
 button:hover, .btn:hover { filter: brightness(1.05); }
 
-/* -- Table de correction -- */
+/*  Table de correction  */
 table.correction {
   width: 100%;
   border-collapse: collapse;
@@ -162,7 +162,7 @@ table.correction th, table.correction td {
 table.correction th { color: var(--muted); }
 .score { font-size: 2rem; font-weight: 800; }
 
-/* -- Pied de page -- */
+/*  Pied de page  */
 .site-footer {
   text-align: center;
   padding: 24px 16px 40px;
@@ -175,7 +175,7 @@ table.correction th { color: var(--muted); }
   .score { font-size: 1.6rem; }
 }
 
-/* ===== Constellation en arrière-plan ===== */
+/*  Constellation en arrière-plan  */
 #net-bg{
   position: fixed;
   inset: 0;
@@ -191,11 +191,8 @@ table.correction th { color: var(--muted); }
 /* Contenu au-dessus du canvas */
 .site-header, .container, .site-footer, .card { position: relative; z-index: 0; }
 
-/* ==== TEST rapide fond uni (désactive si besoin) ==== */
-/* body { background: #0b1220 !important; } */
 
-
-/* ---------------- Modal personnalisée ---------------- */
+/*  Modal personnalisée  */
 .modal-backdrop {
   position: fixed;
   inset: 0; /* top:0; right:0; bottom:0; left:0; */
@@ -230,7 +227,7 @@ table.correction th { color: var(--muted); }
   justify-content: flex-end;
 }
 
-/* Bouton secondaire (style léger) */
+/* Bouton secondaire */
 .btn-secondary {
   background: transparent;
   color: var(--text);
@@ -244,9 +241,9 @@ table.correction th { color: var(--muted); }
 }
 /* Cache vraiment la modale si [hidden] est présent */
 .modal-backdrop[hidden] { display: none !important; }
-/* Optionnel : bloquer le scroll quand le body a la classe below-modal */
+/* bloquer le scroll quand le body a la classe below-modal */
 body.below-modal { overflow: hidden; }
-/* === Erreurs inline custom (style "pro") ======================= */
+/* === Erreurs inline custom (style "pro")  */
 .field.invalid input,
 .field.invalid select {
   border-color: #ef4444;
@@ -274,4 +271,15 @@ body.below-modal { overflow: hidden; }
   border-color: #22c55e;
   box-shadow: 0 0 0 2px rgba(34,197,94,.18);
 }
+  #net-bg{
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;          /* derrière tout */
+      display: block;
+      pointer-events: none; /* ne bloque pas les clics */
+    }
+    /* s’assure que le contenu est au-dessus */
+    .site-header, .container, .site-footer, .card { position: relative; z-index: 0; }
 

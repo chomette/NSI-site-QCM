@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalYes= document.getElementById('modal-yes');
   const modalNo = document.getElementById('modal-no');
 
-  /* ---------- Affichage Q5 selon OS ---------- */
+  /* Q5 selon OS */
   function showQ5ForOS(value) {
     [q5Windows, q5Mac, q5Linux].forEach(b => { if (b) b.setAttribute('hidden',''); });
     if (value === 'windows' && q5Windows) q5Windows.removeAttribute('hidden');
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showQ5ForOS(osSelect.value);
   }
 
-  /* ---------- Helpers erreurs inline ---------- */
+  /* erreurs (dmd rouge) */
   function ensureErrorEl(container){
     let err = container.querySelector('.error-msg');
     if (!err) {
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (input) input.removeAttribute('aria-invalid');
   }
 
-  /* ---------- Validation du formulaire (inline) ---------- */
+  /* Validation du formulaire  */
   function validateForm(){
     let ok = true;
 
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (q5Container) markValid(q5Container);
     }
 
-    // scroll au 1er invalid pour confort
+    // scroll au 1er invalid 
     if (!ok){
       const firstInvalid = form.querySelector('.invalid');
       if (firstInvalid) firstInvalid.scrollIntoView({ behavior:'smooth', block:'center' });
@@ -125,8 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return ok;
   }
 
-  // Ajoute des id aux q-block pour la validation (si pas déjà là)
-  // (évite d’éditer ton HTML)
+  // Ajoute des id aux q-block pour la validation 
   const qBlocks = form.querySelectorAll('.q-block');
   qBlocks.forEach((b, i) => {
     if (!b.id) b.id = `q-block-q${i+1}`;
@@ -142,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (wrapper) clearError(wrapper);
   });
 
-  /* ---------- Modal personnalisée ---------- */
+  /*  Modal personnalisée  */
   function openModal(){
     if (!modal) return;
     modal.removeAttribute('hidden');
@@ -176,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (t && t.id === 'modal-yes'){
       bypassConfirm = true;
       closeModal();
-      form.submit(); // soumission réelle
+      form.submit(); 
     }
     if (t && t.id === 'modal-no'){
       closeModal();

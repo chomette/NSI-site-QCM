@@ -1,4 +1,4 @@
-// Constellation BG - plein écran, derrière le site
+// Constellation 
 const canvasBG = document.getElementById('net-bg');
 const ctxBG = canvasBG.getContext('2d', { alpha: true });
 

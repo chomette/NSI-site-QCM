@@ -1,10 +1,19 @@
-# -*- coding: utf-8 -*-
+# ###############################################################################
+### Programme d'affichage de page Web via Flask
+###
+### Utiliser l'outil "Explorer" ou "voir le code source" du navigateur pour
+### vérifier le contenu de la page web envoyée par le serveur
+###
+### Une bonne habitude à prendre est d'intenter le code HTML pour faciliter sa
+### lecture. Ceci est réalisé grâce aux triples quotes qui permettent
+### d'interpréter les chaines de caractères telles qu'elles sont écrites dans
+### le programme python. A défaut, on peut aussi utiliser les caractères
+### spéciaux comme \n (saut de ligne) ou \t (tabulation)
 ################################################################################
-# Serveur Flask minimal pour un mini site d'e-learning (cybersécurité)
-# - 2 routes : / (index) et /resultat (affichage du score + corrections)
-# - Récupération des données du formulaire et calcul du score côté serveur
-# - Code volontairement simple pour rester au plus proche du squelette fourni
+
 ################################################################################
+# Module flask permettant de gérer un serveur et des pages web
+# Note: les fichiers html doivent impérativement se trouver dans un répertoire "templates"
 
 from flask import Flask, render_template, request
 
@@ -115,5 +124,5 @@ def explication_q5(os_choice):
     return "Sélectionnez votre système d’exploitation pour une correction adaptée."
 
 if __name__ == "__main__":
-    # Accès: http://localhost:5000
+    # Accès: http://127.0.0.1:5000
     app.run(debug=True)
